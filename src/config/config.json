@@ -1,0 +1,28 @@
+{
+  "development": {
+    "username": "duy",
+    "password": "07012k3.Nkd",
+    "database": "ecom",
+    "host": "localhost",
+    "dialect": "mysql",
+    "logging": true,
+    "query": {
+      "raw": true
+    },
+    "timezone": "+07:00"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

@@ -1,27 +1,23 @@
 'use strict';
-const {
-    Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-    class ReceiptDetail extends Model {
-        /**
-         * Helper method for defining associations.
-         * This method is not a part of Sequelize lifecycle.
-         * The `models/index` file will call this method automatically.
-         */
-        static associate(models) {
-           
+const { Model } = require('sequelize');
 
-        }
-    };
-    ReceiptDetail.init({
-        receiptId: DataTypes.INTEGER,
-        productDetailSizeId:DataTypes.INTEGER,
-        quantity:DataTypes.INTEGER,
-        price:DataTypes.BIGINT
-    }, {
-        sequelize,
-        modelName: 'ReceiptDetail',
-    });
-    return ReceiptDetail;
+module.exports = (sequelize, DataTypes) => {
+  class ReceiptDetail extends Model {
+    static associate(models) {
+      ReceiptDetail.belongsTo(models.Receipt, { foreignKey: 'receipt_id' });
+      ReceiptDetail.belongsTo(models.Product, { foreignKey: 'product_id' });
+    }
+  };
+  ReceiptDetail.init({
+    receipt_detail_id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    receipt_id: DataTypes.INTEGER,
+    product_id: DataTypes.INTEGER,
+    quantity: DataTypes.INTEGER,
+    price: DataTypes.DECIMAL(10, 2),
+  }, {
+    sequelize,
+    modelName: 'ReceiptDetail',
+    timestamps: false,
+  });
+  return ReceiptDetail;
 };

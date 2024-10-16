@@ -1,26 +1,21 @@
 'use strict';
+const { Model } = require('sequelize');
 
-const {
-    Model
-} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class ProductImage extends Model {
-        /**
-         * Helper method for defining associations.
-         * This method is not a part of Sequelize lifecycle.
-         * The `models/index` file will call this method automatically.
-         */
-        static associate(models) {
-            ProductImage.belongsTo(models.ProductDetail, { foreignKey: 'productdetailId', targetKey: 'id', as: 'productImageData' })
-        }
-    };
-    ProductImage.init({
-        caption: DataTypes.STRING,
-        productdetailId: DataTypes.INTEGER,
-        image: DataTypes.BLOB('long')
-    }, {
-        sequelize,
-        modelName: 'ProductImage',
-    });
-    return ProductImage;
+  class ProductImage extends Model {
+    static associate(models) {
+      ProductImage.belongsTo(models.Product, { foreignKey: 'product_id' });
+    }
+  };
+  ProductImage.init({
+    image_id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    product_id: DataTypes.INTEGER,
+    image_url: DataTypes.STRING,
+    is_primary: DataTypes.Boolean,
+  }, {
+    sequelize,
+    modelName: 'ProductImage',
+    timestamps: false,
+  });
+  return ProductImage;
 };

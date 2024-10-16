@@ -1,23 +1,22 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
-  class messageRoom extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+  class MessageRoom extends Model {
     static associate(models) {
-      // define association here
+      MessageRoom.hasMany(models.Message, { foreignKey: 'room_id' });
     }
   };
-  messageRoom.init({
-    firstName: DataTypes.STRING
+  MessageRoom.init({
+    room_id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    userOne_id: DataTypes.INTEGER,
+    userTwo_id: DataTypes.INTEGER,
+    added_at: DataTypes.DATE,
+    updated_at: DataTypes.DATE,
   }, {
     sequelize,
-    modelName: 'messageRoom',
+    modelName: 'MessageRoom',
+    timestamps: false,
   });
-  return messageRoom;
+  return MessageRoom;
 };

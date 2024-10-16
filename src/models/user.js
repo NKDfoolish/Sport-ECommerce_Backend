@@ -1,37 +1,32 @@
 'use strict';
-const {
-    Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-    class User extends Model {
-        /**
-         * Helper method for defining associations.
-         * This method is not a part of Sequelize lifecycle.
-         * The `models/index` file will call this method automatically.
-         */
-        static associate(models) {
-            User.belongsTo(models.Allcode, { foreignKey: 'genderId', targetKey: 'code', as: 'genderData' })
-            User.belongsTo(models.Allcode, { foreignKey: 'roleId', targetKey: 'code', as: 'roleData' })
-        }
-    };
-    User.init({
-        email: DataTypes.STRING,
-        password: DataTypes.STRING,
-        firstName: DataTypes.STRING,
-        lastName: DataTypes.STRING,
-        address: DataTypes.STRING,
-        genderId: DataTypes.STRING,
-        phonenumber: DataTypes.STRING,
-        image: DataTypes.BLOB('long'),
-        dob: DataTypes.STRING,
-        isActiveEmail: DataTypes.BOOLEAN,
-        roleId: DataTypes.STRING,
-        statusId: DataTypes.STRING,
-        usertoken: DataTypes.STRING,
+const { Model } = require('sequelize');
 
-    }, {
-        sequelize,
-        modelName: 'User',
-    });
-    return User;
+module.exports = (sequelize, DataTypes) => {
+  class User extends Model {
+    static associate(models) {
+      User.hasMany(models.CartItem, { foreignKey: 'user_id' });
+      User.hasMany(models.Order, { foreignKey: 'user_id' });
+      User.hasMany(models.Review, { foreignKey: 'user_id' });
+      User.hasMany(models.Message, { foreignKey: 'user_id' });
+      User.hasMany(models.UserAddress, { foreignKey: 'user_id' });
+    }
+  };
+  User.init({
+    user_id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    username: DataTypes.STRING,
+    email: DataTypes.STRING,
+    password: DataTypes.STRING,
+    full_name: DataTypes.STRING,
+    address: DataTypes.TEXT,
+    gender: DataTypes.ENUM('male', 'female'),
+    phone_number: DataTypes.STRING,
+    created_at: DataTypes.DATE,
+    role: DataTypes.ENUM('customer', 'admin'),
+    is_admin: DataTypes.BOOLEAN,
+  }, {
+    sequelize,
+    modelName: 'User',
+    timestamps: false,
+  });
+  return User;
 };

@@ -2,7 +2,7 @@
   "development": {
     "username": "duy",
     "password": "07012k3.Nkd",
-    "database": "ecom",
+    "database": "ecom1",
     "host": "localhost",
     "dialect": "mysql",
     "logging": true,

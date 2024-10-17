@@ -1,0 +1,5 @@
+# Run migration by this code:
+npx sequelize-cli db:migrate
+
+# Link db diagram:
+https://app.eraser.io/workspace/PEyP8aHb8rfdLOWlivds

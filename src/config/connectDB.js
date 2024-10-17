@@ -2,7 +2,7 @@ const { Sequelize } = require('sequelize');
 
 
 // Option 2: Passing parameters separately (other dialects)
-const sequelize = new Sequelize('ecom', process.env.DB_USERNAME, process.env.DB_PASS, {
+const sequelize = new Sequelize('ecom1', process.env.DB_USERNAME, process.env.DB_PASS, {
     host: 'localhost',
     dialect: 'mysql',
     logging: true,
